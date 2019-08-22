@@ -8,6 +8,10 @@ int	main(int ac, char *av[])
 	int j;
 	char **ep;
 
+	ft_putnbr(getppid());
+	ft_nl();
+	ft_putnbr(getpid());
+	ft_nl();
 	ep = environ;
 	j = 0;
 	while(j < ac)
