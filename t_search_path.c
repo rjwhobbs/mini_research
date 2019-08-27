@@ -1,7 +1,5 @@
 #include "mini.h"
 
-extern char **environ;
-
 int		bin_search(char *path, char *prog, int n)
 {
 	struct dirent	*bins;
@@ -27,7 +25,7 @@ int		bin_search(char *path, char *prog, int n)
 	return (0);
 }
 
-int		main(int ac, char *av[])
+int		main(int ac, char *av[], char *env[])
 {
 	int		i;
 	char	**ep;
@@ -37,7 +35,7 @@ int		main(int ac, char *av[])
 	int		search;
 
 	i = 0;
-	ep = environ;
+	ep = env;
 	len = 0;
 	search = 0;
 	while (*ep)

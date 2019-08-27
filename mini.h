@@ -3,6 +3,4 @@
 # include "../libft/libft.h"
 # include <dirent.h>
 
-extern char **environ;
-
 #endif
