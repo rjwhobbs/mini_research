@@ -1,0 +1,59 @@
+
+
+int		main(int ac, char *av[], char *env[])
+{
+	char	*path;
+	int		status;
+
+	status = 1;
+	while(status)
+	{
+		read_input()
+		parse_input()
+		path = search_path()
+		if (path)
+			status = exec_input()
+	}
+	exit (EXIT_SUCCESS)
+}
+
+int		exec_input()
+{
+	first check if the input is a builtin
+	if so
+		return (buitin)
+	else
+		return (cmdl_tool_launch)
+}
+
+int		exit_builtin()
+{
+	return (0)
+}
+
+int		cd_builtin()
+{
+	change_dir()
+	return 1
+}
+
+int		cmdl_tool_launch()
+{
+	pid_t cid;
+	pid_t wid;
+
+	wid == 0;
+	pid_t = fork()
+	if (pid_t == 0)
+	{
+		//Child
+		execve(input[0], input, NULL);
+	}
+	else
+	{
+		//Parent
+		while (wait == 0)
+			wait(&wait);
+	}
+	return 1
+}

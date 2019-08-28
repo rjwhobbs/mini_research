@@ -8,7 +8,7 @@ int		bin_search(char *path, char *prog, int n)
 
 	ft_strncpy(location, path, n);
 	location[n] = 0;
-	ft_putendl(location);
+	//ft_putendl(location);
 	path_to_bin = opendir(location);
 	if (path_to_bin == NULL)
 		return (-1);

@@ -6,5 +6,5 @@ int	main(int ac, char *av[])
 	//along with the args.
 	execve(av[1], ins, NULL); //av here needs to contain the path to the prog.
 	ft_putendl("Error");
-	return (EXIT_SUCCESS);
+	return (EXIT_FAILURE);
 }
