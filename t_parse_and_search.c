@@ -1,5 +1,6 @@
 #include "mini.h"
 
+
 char*		bin_search(char *path, char *prog, int n)
 {
 	struct dirent	*bins;
