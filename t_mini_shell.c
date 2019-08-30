@@ -77,7 +77,7 @@ int		run_exec(char **args, char **ep)
 	{
 		execve(path, args, ep);
 		ft_putstr("Error opening: ");
-		ft_putendl(path);
+		ft_putendl(*args);
 		return (1);
 	}
 	//else if (pid > 0)
