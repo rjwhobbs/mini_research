@@ -8,7 +8,7 @@ int		main(int ac, char *av[], char *env[])
 	status = 1;
 	while(status)
 	{
-		read_input()
+		gnl(&path)
 		parse_input()
 		path = search_path()
 		if (path)

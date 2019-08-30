@@ -8,8 +8,8 @@ int	main(int ac, char *av[])
 	int j;
 	char **ep;
 
-	ft_putnbr(getppid());
-	ft_nl();
+	//ft_putnbr(getppid());
+	//ft_nl();
 	ft_putnbr(getpid());
 	ft_nl();
 	ep = environ;
@@ -27,5 +27,6 @@ int	main(int ac, char *av[])
 		ft_putendl(*ep);
 		ep++;
 	}
-	return (0);
+	exit (0);
+	ft_putendl("XXXX");
 }
