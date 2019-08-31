@@ -3,6 +3,6 @@
 # include "../libft/libft.h"
 # include <dirent.h>
 
-char **g_env_strs; 
+char **g_environ_vars; 
 
 #endif

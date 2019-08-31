@@ -24,6 +24,8 @@ int		exec_input()
 		return (buitin)
 	else
 		return (cmdl_tool_launch)
+	else
+		check if it's an executable from the given dir.
 }
 
 int		exit_builtin()
