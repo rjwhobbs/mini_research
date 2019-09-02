@@ -1,5 +1,6 @@
 #include "mini.h"
 
+void	print_env(char **ep);
 char	*bin_search(char *path, char *prog, int n)
 {
 	struct dirent	*bins;
@@ -62,10 +63,16 @@ char	*get_path(char **args, char **env)
 	return (path);
 }
 
-// int		ft_setenv(void)
-// {
+int		ft_setenv(void)
+{
 
-// }
+	*g_environ_vars = ft_strdup("XXxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+	// void **v;
+	// *v = s;
+	// free(s);
+	// ft_putendl(s);
+	return (1);
+}
 
 int		run_exec(char **args, char **env)
 {
@@ -75,8 +82,10 @@ int		run_exec(char **args, char **env)
 
 	if (ft_strcmp(*args, "exit") == 0)
 		return (0);
-	// else if (ft_strcmp(*args, "setenv") == 0)
-	//  	return (ft_setenv());
+	else if (ft_strcmp(*args, "setenv") == 0)
+	 	return (ft_setenv());
+	else if (ft_strcmp(*args, "./a.out") == 0)
+	 	execve("./a.out", args, env);
 	status = 1;
 	path = get_path(args, env);
 	pid = fork();
@@ -110,6 +119,7 @@ void	msh_read(char **env)
 	int		status;
 	int		gnl_status;
 
+	print_env(env);
 	status = 1;
 	input = NULL;
 	while (status)
@@ -159,12 +169,13 @@ void	print_env(char **ep)
 		ft_putendl(ep[i++]);
 }
 
-int		main(int ac, char *av[], char *env[])
+int		main(int ac, char *av[], char *env[])  // We can do this as we are getting out env vars from extern char **environ
 {
 	g_environ_vars = arrdup(env);
 	//**env = 'Z';
-	**g_environ_vars = 'a';
+	//**g_environ_vars = 'a';
+	//free(*environ);
 	msh_read(g_environ_vars);
 	ft_putendl("-----------------thank you for testing msh---------------");
-	return (0);
+	exit (EXIT_SUCCESS);
 }
