@@ -119,7 +119,7 @@ void	msh_read(char **env)
 	int		status;
 	int		gnl_status;
 
-	print_env(env);
+	qprint_env(env);
 	status = 1;
 	input = NULL;
 	while (status)
@@ -172,9 +172,6 @@ void	print_env(char **ep)
 int		main(int ac, char *av[], char *env[])  // We can do this as we are getting out env vars from extern char **environ
 {
 	g_environ_vars = arrdup(env);
-	//**env = 'Z';
-	//**g_environ_vars = 'a';
-	//free(*environ);
 	msh_read(g_environ_vars);
 	ft_putendl("-----------------thank you for testing msh---------------");
 	exit (EXIT_SUCCESS);
