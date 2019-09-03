@@ -112,7 +112,6 @@ int		run_exec(char **args, char ***env)
 	//else if (pid > 0)
 	while (status)
 	{
-		ft_putendl("zzzz");
 		waitpid(pid, &status, WUNTRACED);
 		if (WIFEXITED(status) || WIFSIGNALED(status))
 			break ;
