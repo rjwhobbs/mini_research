@@ -1,6 +1,7 @@
 #include "mini.h"
 
 void	print_env(char **ep);
+
 char	*bin_search(char *path, char *prog, int n)
 {
 	struct dirent	*bins;
@@ -63,10 +64,10 @@ char	*get_path(char **args, char **env)
 	return (path);
 }
 
-int		ft_setenv(void)
+int		ft_setenv(char ***env)
 {
 
-	*g_environ_vars = ft_strdup("XXxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+	**env = ft_strdup("XXxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 	// void **v;
 	// *v = s;
 	// free(s);
@@ -74,36 +75,44 @@ int		ft_setenv(void)
 	return (1);
 }
 
-int		run_exec(char **args, char **env)
+int		run_exec(char **args, char ***env)
 {
 	char	*path;
 	pid_t	pid;
 	int		status;
-
+	
 	if (ft_strcmp(*args, "exit") == 0)
 		return (0);
 	else if (ft_strcmp(*args, "setenv") == 0)
-	 	return (ft_setenv());
+	 	return (ft_setenv(env));
 	else if (ft_strcmp(*args, "./a.out") == 0)
-	 	execve("./a.out", args, env);
+	{
+	 	execve("./a.out", args, *env);
+	}
+	else if (ft_strcmp(*args, "cd") == 0)
+	{
+		chdir(args[1]);
+		return (1);
+	}
 	status = 1;
-	path = get_path(args, env);
+	path = get_path(args, *env);
 	pid = fork();
 	if (pid == 0)
 	{
 		if ((ft_strcmp(*args, "./print_mem") == 0))
-			execve("./print_mem", args, env);
+			execve("./print_mem", args, *env);
 		else
 		{
-			execve(path, args, env);
+			execve(path, args, *env);
 			ft_putstr("Error opening: ");
 			ft_putendl(*args);
 		}
-		return (1);
+		return (0);
 	}
 	//else if (pid > 0)
 	while (status)
 	{
+		ft_putendl("zzzz");
 		waitpid(pid, &status, WUNTRACED);
 		if (WIFEXITED(status) || WIFSIGNALED(status))
 			break ;
@@ -112,19 +121,19 @@ int		run_exec(char **args, char **env)
 	return (1);
 }
 
-void	msh_read(char **env)
+void	msh_read(char ***env)
 {
 	char	*input;
 	char	**args;
 	int		status;
 	int		gnl_status;
 
-	qprint_env(env);
+	//print_env(env);
 	status = 1;
 	input = NULL;
 	while (status)
 	{
-		ft_putstr("msh > "); // why does cat's output interfere here?
+		ft_putstr("msh > "); // why does cat's output interfere here? bash seems to handle this, not zsh though
 		gnl_status = get_next_line(STDIN_FILENO, &input);
 		if (gnl_status == -1)
 			ft_putendl("error reading stdin.");
@@ -169,10 +178,10 @@ void	print_env(char **ep)
 		ft_putendl(ep[i++]);
 }
 
-int		main(int ac, char *av[], char *env[])  // We can do this as we are getting out env vars from extern char **environ
+int		main(int ac, char *av[], char *env[])
 {
-	g_environ_vars = arrdup(env);
-	msh_read(g_environ_vars);
+	//g_environ_vars = arrdup(env);
+	msh_read(&env);
 	ft_putendl("-----------------thank you for testing msh---------------");
 	exit (EXIT_SUCCESS);
 }
