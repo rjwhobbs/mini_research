@@ -25,7 +25,7 @@ static char	*bin_search(char *path, char *arg, int n)
 	return (NULL);
 }
 
-static char *path_search(char *arg, char *start, char *end, char c)
+static char *path_search(char *arg, char *start, char *end)
 {
 	char	*path;
 
@@ -37,7 +37,7 @@ static char *path_search(char *arg, char *start, char *end, char c)
 		if (*start == 0)
 			return (NULL);
 		start += 1;
-		if (!(end = ft_strchr(start, c)))
+		if (!(end = ft_strchr(start, ':')))
 			end = ft_strchr(start, 0);
 		path = bin_search(start, arg, end - start);
 		if (path)
@@ -46,7 +46,7 @@ static char *path_search(char *arg, char *start, char *end, char c)
 	return (NULL);
 }
 
-static char *path_start(char *var, char *arg, char c)
+static char *path_start(char *var, char *arg)
 {
 	char	*start;
 	char	*end;
@@ -54,31 +54,37 @@ static char *path_start(char *var, char *arg, char c)
 	start = ft_strchr(var, '=');
 	if (start)
 	{
-		if (!(end = ft_strchr(start + 1, c)))
+		if (!(end = ft_strchr(start + 1, ':')))
 			end = ft_strchr(start, 0);
-		return (path_search(arg, start + 1, end, c));
+		return (path_search(arg, start + 1, end));
 	}
 	return (NULL);
 }
 
-static char	*env_search(char **env, char *arg, char c, int flag)
+static char	*env_search(char **env, char *env_var, char *arg, int flag)
 {
 	char *var;
 
 	while (*env)
 	{
-		var = ft_strstr(*env++, arg);
+		var = ft_strstr(*env++, env_var);
 		if (var && !flag)
 			return (var);
 		else if (var && flag)
-			return(path_start(var, arg, c));
+			return(path_start(var, arg));
 	}
 	return (*env);
 }
 
-char		*param_search(char **env, char *arg, char c, int flag)
+char		*param_search(char **env, char *env_var, char *arg, int flag)
 {
-	if (!env || !*env || !arg || !*arg)
+	if (!env || !*env || !env_var || !*env_var)
 		return (NULL);
-	return (env_search(env, arg, c, flag));
+	return (env_search(env, env_var, arg, flag));
 }
+
+/* The idea was to make this function do various env variable functions, hence the flags.
+ * However, due to the use of strstr any var name containing a certain char might be found.
+ * Also this is currently only able to specifically get the var name and it's value
+ * or search the paths in PATH. It can't at this statge get the vars value.
+ * also there is no error handling */
