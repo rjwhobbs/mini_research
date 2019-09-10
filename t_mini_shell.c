@@ -84,7 +84,7 @@ int		run_exec(char **args, char ***env)
 	if (ft_strcmp(*args, "exit") == 0)
 		return (0);
 	else if (ft_strcmp(*args, "setenv") == 0)
-	 	return (ft_setenv(&env));
+	 	return (ft_setenv(env));
 	else if (ft_strcmp(*args, "./a.out") == 0)
 	{
 	 	execve("./a.out", args, *env);
